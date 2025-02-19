@@ -17,16 +17,6 @@ def save_click_conte():
     with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker\click_conte.txt","w") as f:
         f.write(str(click_conte))
 
-def pause():
-    pause = True
-    print("pause activer presse "'"s"'" pour reprendre "'f'" pour arreter")
-    while pause:
-        if keyboard.is_pressed("s"):
-            pause = False
-        if keyboard.is_pressed("f"):
-            print("stop")
-            break
-
 def toggle_pause():
     global paused
     paused = not paused
