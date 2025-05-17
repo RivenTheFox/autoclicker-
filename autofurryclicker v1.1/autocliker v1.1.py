@@ -32,6 +32,7 @@ except ImportError: #instalation des fonction manquante
             import mouse 
 
 
+
 mode = 1
 paused = True
 import mouse
@@ -57,7 +58,19 @@ def toggle_pause():
     global click_conte_sesion
     save_click_conte()
     if paused:
-        print("Pause activée. Pressez Shift+S pour reprendre.")
+        print(r"""
+⠀⠀⠀⠀⠀⢠⣒⣤⠤⣀⣀
+⠀⠀⠠⣒⢤⠋⠂⠈⡷⠒⠒⣗⠢⡀
+⠀⢠⠋⠀⡇⠀⠀⣰⠁⠀⢀⡼⠠⣱
+⠀⢈⠀⠀⣧⣀⣠⣏⢀⠴⠋⠉⠙⡟⡄
+⠀⠘⣄⢠⠟⠉⠉⢻⡎⠀⠀⠀⣸⠇⢸
+⠀⢀⠜⡏⠁⠀⠀⠀⣧⣀⣠⠾⠋⠀⡜
+⠀⡜⠀⠁⠀⠀⠀⠀⠘⣷⠀⠀⡠⠊
+⠀⠹⣁⡤⢾⡀⠀⠀⢠⠏⠀⡐⠁
+⠀⠀⠃⢴⠀⠉⠒⠚⠃⠀⢠
+⠀⢸⠀⠈⠁
+""")
+        print("Pawse activée. Pressez Shift+S pour reprendre.")
         print("nombre totalede click","(",click_conte,")""nombre click sesion","(",click_conte_sesion,")")
         # click_conte = nombre de click totale du script sur le pc : click_conte_sesion = nombre de clique de la sesion acuelle 
     else:
@@ -136,17 +149,17 @@ while(True):
 
         if mode == 1 :
             autoclic_1()
-        if mode == 2:
+        elif mode == 2:
             autoclic_2()
-        if mode == 3:
+        elif mode == 3:
             autoclic_3()
-        if mode == 4:
+        elif mode == 4:
             autoclic_4()
-        if mode == 5:
+        elif mode == 5:
             if record == True :
                 autoclic_5()
-            if record == False :
+            else:
                 record_action()
                 time.sleep(0.05)
-    if paused :
+    else:
         time.sleep(1)
