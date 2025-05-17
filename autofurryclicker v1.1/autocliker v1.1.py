@@ -42,14 +42,22 @@ record = False
 
 def load_click_conte():
     global click_conte
-    with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1\click_conte.txt","r") as f:
-        content = f.read().strip()
-        if content.isdigit():
-            click_conte = int(content)
+    try:
+        with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1\click_conte.txt","r") as f:
+            content = f.read().strip()
+            if content.isdigit():
+                click_conte = int(content)
+    except FileNotFoundError:
+        click_conte = 0
 
 def save_click_conte():
+    global click_conte
     with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1\click_conte.txt","w") as f:
-        f.write(str(click_conte))
+        try:
+            f.write(str(click_conte))
+        except NameError :
+            click_conte = 0
+
 
 def toggle_pause():
     global paused
