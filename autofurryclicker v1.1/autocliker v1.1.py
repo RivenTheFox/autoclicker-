@@ -1,5 +1,3 @@
-# pip install keyboard 
-print ("version test")
 import time 
 try: #importation des fonction
     import keyboard
@@ -32,7 +30,6 @@ except ImportError: #instalation des fonction manquante
             print("tout et instaler")
             import keyboard
             import mouse 
-
 
 
 mode = 1
