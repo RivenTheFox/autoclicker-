@@ -71,7 +71,7 @@ def toggle_pause():
     global click_conte_sesion
     save_click_conte()
     if paused:
-        print(r"""
+        print(r"""----------------------
 ⠀⠀⠀⠀⠀⢠⣒⣤⠤⣀⣀
 ⠀⠀⠠⣒⢤⠋⠂⠈⡷⠒⠒⣗⠢⡀
 ⠀⢠⠋⠀⡇⠀⠀⣰⠁⠀⢀⡼⠠⣱
@@ -92,25 +92,59 @@ def toggle_pause():
 
 def mod_selection():
     global mode 
-    mod_selection = True
-    print("mode selection")
-    print(" mode 1 = (0.01) sec \n mode 2 = (0.05) \n mode 3 = (0.1)sec \n mode 4 = delay personaliser \n mode 5 = en devlopment ")
-    mode = input()
-    mode = int(mode)
-    if mode == 4:
-        global mode_4_delay
-        print("selection du delay entrer le delay sous sait forme (*.**) ")
-        while True :
-            mode_4_delay = input().replace(",", ".")
-            try:
-                mode_4_delay = float(mode_4_delay)
-                print(mode_4_delay, "\n" )
-                toggle_pause()
-            except ValueError:
-                print("delay non valide entrer un nouveau delay")
-    else:
-        print("mode selectionner mode (",mode,")")
-        toggle_pause()
+    global mode_4_delay
+    global paused
+    while True:
+        mod_selection = True
+        print("mode selection")
+        print(" mode 1 = (0.01) sec \n mode 2 = (0.05) \n mode 3 = (0.1)sec \n mode 4 = delay personaliser \n mode 5 = en devlopment ")
+        mode = input()
+        try:
+            mode = int(mode)
+        except ValueError :
+            mode = 0
+
+        if mode == 4:
+            print("selection du delay entrer le delay sous sait forme (*.**) ")
+            while True :
+                mode_4_delay = input().replace(",", ".")
+                try:
+                    mode_4_delay = float(mode_4_delay)
+                    print(mode_4_delay, "\n" )
+                    if not paused :
+                        toggle_pause()
+                    else:
+                        print("""----------------------
+⠀⠀⠀⠀⠀⢠⣒⣤⠤⣀⣀
+⠀⠀⠠⣒⢤⠋⠂⠈⡷⠒⠒⣗⠢⡀
+⠀⢠⠋⠀⡇⠀⠀⣰⠁⠀⢀⡼⠠⣱
+⠀⢈⠀⠀⣧⣀⣠⣏⢀⠴⠋⠉⠙⡟⡄
+⠀⠘⣄⢠⠟⠉⠉⢻⡎⠀⠀⠀⣸⠇⢸
+⠀⢀⠜⡏⠁⠀⠀⠀⣧⣀⣠⠾⠋⠀⡜
+⠀⡜⠀⠁⠀⠀⠀⠀⠘⣷⠀⠀⡠⠊
+⠀⠹⣁⡤⢾⡀⠀⠀⢠⠏⠀⡐⠁
+⠀⠀⠃⢴⠀⠉⠒⠚⠃⠀⢠
+⠀⢸⠀⠈⠁
+
+Pawse activée. Pressez Shift+S pour reprendre.
+----------------------
+nombre totale de click ( 2503 )
+nombre click sesion ( 178 )
+----------------------""")
+                    return
+
+                except ValueError:
+                    print("delay non valide entrer un nouveau delay")
+                    time.sleep(0.5)
+
+        elif mode >= 1 and mode <= 5 :
+                print("mode selectionner mode (",mode,")")
+                if not paused :
+                    toggle_pause()
+                return
+        else :
+            print("mode invalide")
+            time.sleep(0.5)
 
 
 
@@ -150,7 +184,7 @@ def autoclic_5():
     print("debut du replay")
     mouse.play(record)
 
-keyboard.add_hotkey('Shift+s',toggle_pause,time.sleep(0.02))
+keyboard.add_hotkey('Shift+s',toggle_pause)
 keyboard.add_hotkey('Shift+m',mod_selection)
 
 load_click_conte()
@@ -175,4 +209,4 @@ while(True):
                 record_action()
                 time.sleep(0.05)
     else:
-        time.sleep(1)
+        time.sleep(0.1)
