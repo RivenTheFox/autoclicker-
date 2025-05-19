@@ -52,11 +52,16 @@ def load_click_conte():
 
 def save_click_conte():
     global click_conte
-    with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1\click_conte.txt","w") as f:
-        try:
-            f.write(str(click_conte))
-        except NameError :
-            click_conte = 0
+    try:
+        with open(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1\click_conte.txt","w") as f:
+            try:
+                f.write(str(click_conte))
+            except NameError :
+                click_conte = 0
+    except FileNotFoundError :
+        import os 
+        os.makedirs(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1")
+
 
 
 def toggle_pause():
@@ -79,7 +84,7 @@ def toggle_pause():
 ⠀⢸⠀⠈⠁
 """)
         print("Pawse activée. Pressez Shift+S pour reprendre.")
-        print("nombre totalede click","(",click_conte,")""nombre click sesion","(",click_conte_sesion,")")
+        print("----------------------\nnombre totale de click","(",click_conte,")""\nnombre click sesion","(",click_conte_sesion,")\n----------------------")
         # click_conte = nombre de click totale du script sur le pc : click_conte_sesion = nombre de clique de la sesion acuelle 
     else:
         print("Reprise du script.")
