@@ -31,8 +31,6 @@ except ImportError: #instalation des fonction manquante
             import keyboard
             import mouse 
 
-
-
 mode = 1
 paused = True
 import mouse
@@ -61,8 +59,6 @@ def save_click_conte():
     except FileNotFoundError :
         import os 
         os.makedirs(r"C:\Users\alexa\Documents\phyton\autofurryclicker v1.1")
-
-
 
 def toggle_pause():
     global paused
@@ -93,18 +89,53 @@ def toggle_pause():
 def mod_selection():
     global mode 
     global mode_4_delay
+    global mode_3_CPS
+    global mode_2_CPM
     global paused
     while True:
         mod_selection = True
         print("mode selection")
-        print(" mode 1 = (0.01) sec \n mode 2 = (0.05) \n mode 3 = (0.1)sec \n mode 4 = delay personaliser \n mode 5 = en devlopment ")
+        print(" mode 1 = (0.01) sec \n mode 2 = CPM personaliser \n mode 3 = CPS personaliser \n mode 4 = delay personaliser \n mode 5 = en devlopment ")
         mode = input()
         try:
             mode = int(mode)
         except ValueError :
             mode = 0
 
-        if mode == 4:
+        if mode == 2:
+            print("selection du nombre de clique par minute entrer le nombre (CPM)")
+            while True :
+                mode_2_CPM_input = input()         # mode_2_CPM_input = inpute avant calcule
+                try:
+                    mode_2_CPM= float(mode_2_CPM_input)
+                    mode_2_CPM = 60 / mode_2_CPM # mode_2_CPM = delay appres calcule
+                    print("nombre de CPM selectioner ",mode_2_CPM_input,"\ndelay entre les clique",mode_2_CPM )
+                    if not paused :
+                        toggle_pause()
+                    return
+
+                except ValueError:
+                    print("cps non valide entrer un nouveau compte")
+                    time.sleep(0.5)
+
+        
+        elif mode == 3:
+            print("selection du nombre de clique par seconde entrer le nombre (cps)\nattention! les cps peuve devenire moin precis plus la valeur et haute ")
+            while True :
+                mode_3_CPS_input = input()         # mode_3_CPS_input = inpute avant calcule
+                try:
+                    mode_3_CPS = float(mode_3_CPS_input)
+                    mode_3_CPS = 1 / mode_3_CPS # mode_3_CPS = delay appres calcule
+                    print("nombre de cps selectioner ",mode_3_CPS_input, "\ndelay entre les clique",mode_3_CPS )
+                    if not paused :
+                        toggle_pause()
+                    return
+
+                except ValueError:
+                    print("cps non valide entrer un nouveau compte")
+                    time.sleep(0.5)
+
+        elif mode == 4:
             print("selection du delay entrer le delay sous sait forme (*.**) ")
             while True :
                 mode_4_delay = input().replace(",", ".")
@@ -113,24 +144,6 @@ def mod_selection():
                     print(mode_4_delay, "\n" )
                     if not paused :
                         toggle_pause()
-                    else:
-                        print("""----------------------
-⠀⠀⠀⠀⠀⢠⣒⣤⠤⣀⣀
-⠀⠀⠠⣒⢤⠋⠂⠈⡷⠒⠒⣗⠢⡀
-⠀⢠⠋⠀⡇⠀⠀⣰⠁⠀⢀⡼⠠⣱
-⠀⢈⠀⠀⣧⣀⣠⣏⢀⠴⠋⠉⠙⡟⡄
-⠀⠘⣄⢠⠟⠉⠉⢻⡎⠀⠀⠀⣸⠇⢸
-⠀⢀⠜⡏⠁⠀⠀⠀⣧⣀⣠⠾⠋⠀⡜
-⠀⡜⠀⠁⠀⠀⠀⠀⠘⣷⠀⠀⡠⠊
-⠀⠹⣁⡤⢾⡀⠀⠀⢠⠏⠀⡐⠁
-⠀⠀⠃⢴⠀⠉⠒⠚⠃⠀⢠
-⠀⢸⠀⠈⠁
-
-Pawse activée. Pressez Shift+S pour reprendre.
-----------------------
-nombre totale de click ( 2503 )
-nombre click sesion ( 178 )
-----------------------""")
                     return
 
                 except ValueError:
@@ -145,9 +158,6 @@ nombre click sesion ( 178 )
         else :
             print("mode invalide")
             time.sleep(0.5)
-
-
-
 
 def record_action():
     global record
@@ -170,11 +180,11 @@ def autoclic_1():
 
 def autoclic_2():
     mouse.click()
-    time.sleep(0.05)
+    time.sleep(mode_2_CPM)
 
 def autoclic_3():
     mouse.click()
-    time.sleep(0.1)
+    time.sleep(mode_3_CPS)
 
 def autoclic_4():
     mouse.click()
